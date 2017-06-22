@@ -67,16 +67,16 @@ namespace PlayStore
 
 
                 appService.AddUpload(new UploadDTO(){
-                    DeveloperName = "Antonio",
-                    DeveloperSurname = "LR",
+                    DeveloperName = "Daniele",
+                    DeveloperSurname = "S",
                     Accepted = true,
-                    DeviceType = "Android",
-                    AppBrand = "Comitiva",
-                    AppName = "Mordi e fuggi",
-                    Currency = "$",
-                    Value = "10",
-                    Email = "anto.test@test.it",
-                    LastUpdate = "20//06//2017"
+                    DeviceType = "WinPhone",
+                    AppBrand = "Sustain",
+                    AppName = "Sost",
+                    Currency = "£",
+                    Value = "100000",
+                    Email = "dani.test@test.it",
+                    LastUpdate = "22//06//2017"
                 });
                 playStoreDBContext.SaveChanges();
 

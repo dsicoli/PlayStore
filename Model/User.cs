@@ -20,8 +20,8 @@ namespace PlayStore.Model
         public string SecondEmail { get; set; }
         public string Surname { get; set; }
 
-        public virtual ICollection<Downloads> Downloads { get; set; }
-        public virtual ICollection<Uploads> Uploads { get; set; }
+        public virtual ICollection<Download> Downloads { get; set; }
+        public virtual ICollection<Upload> Uploads { get; set; }
         public virtual ICollection<UserApp> UserApp { get; set; }
     }
 }

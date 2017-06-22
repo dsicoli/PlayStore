@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlayStore.Model
 {
-    public partial class Uploads
+    public partial class Upload
     {
         public int Id { get; set; }
         public bool Accepted { get; set; }

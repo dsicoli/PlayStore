@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PlayStore.Migrations
 {
-    public partial class play2 : Migration
+    public partial class newplay1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,8 @@ namespace PlayStore.Migrations
                 name: "Apps",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AppBrand = table.Column<string>(type: "varchar(250)", nullable: true),
                     Genre = table.Column<string>(type: "varchar(250)", nullable: true),
                     LastUpdate = table.Column<string>(type: "varchar(250)", nullable: false),
@@ -48,10 +49,8 @@ namespace PlayStore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Android = table.Column<bool>(type: "binary(1)", nullable: false),
                     AppId = table.Column<int>(nullable: false),
-                    Others = table.Column<string>(type: "varchar(2500)", nullable: true),
-                    WinPhone = table.Column<bool>(type: "binary(1)", nullable: false)
+                    DeviceType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,7 +91,7 @@ namespace PlayStore.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AppId = table.Column<int>(nullable: false),
-                    Successful = table.Column<bool>(type: "binary(1)", nullable: false),
+                    Successful = table.Column<byte[]>(type: "binary(1)", nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -227,6 +226,12 @@ namespace PlayStore.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserApp_AppsId",
                 table: "UserApp",
                 column: "AppsId");
@@ -235,12 +240,6 @@ namespace PlayStore.Migrations
                 name: "IX_UserApp_UsersId",
                 table: "UserApp",
                 column: "UsersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users",
-                table: "Users",
-                column: "Email",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

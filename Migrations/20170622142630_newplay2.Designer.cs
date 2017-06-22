@@ -8,8 +8,8 @@ using PlayStore.Model;
 namespace PlayStore.Migrations
 {
     [DbContext(typeof(PlayStoreDBContext))]
-    [Migration("20170621123834_play3")]
-    partial class play3
+    [Migration("20170622142630_newplay2")]
+    partial class newplay2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -17,9 +17,10 @@ namespace PlayStore.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PlayStore.Model.Apps", b =>
+            modelBuilder.Entity("PlayStore.Model.App", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AppBrand")
                         .HasColumnType("varchar(250)");
@@ -43,21 +44,14 @@ namespace PlayStore.Migrations
                     b.ToTable("Apps");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Compatibilities", b =>
+            modelBuilder.Entity("PlayStore.Model.Compatibility", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("Android")
-                        .HasColumnType("binary(1)");
-
                     b.Property<int>("AppId");
 
-                    b.Property<string>("Others")
-                        .HasColumnType("varchar(2500)");
-
-                    b.Property<bool>("WinPhone")
-                        .HasColumnType("binary(1)");
+                    b.Property<string>("DeviceType");
 
                     b.HasKey("Id");
 
@@ -83,14 +77,14 @@ namespace PlayStore.Migrations
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Downloads", b =>
+            modelBuilder.Entity("PlayStore.Model.Download", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AppId");
 
-                    b.Property<bool>("Successful")
+                    b.Property<byte[]>("Successful")
                         .HasColumnType("binary(1)");
 
                     b.Property<int>("UserId");
@@ -103,7 +97,7 @@ namespace PlayStore.Migrations
                     b.ToTable("Downloads");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Prices", b =>
+            modelBuilder.Entity("PlayStore.Model.Price", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -141,7 +135,7 @@ namespace PlayStore.Migrations
                     b.ToTable("Ratings");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Uploads", b =>
+            modelBuilder.Entity("PlayStore.Model.Upload", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -164,27 +158,7 @@ namespace PlayStore.Migrations
                     b.ToTable("Uploads");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.UserApp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AppsId");
-
-                    b.Property<int>("UsersId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppsId")
-                        .HasName("IX_UserApp_AppsId");
-
-                    b.HasIndex("UsersId")
-                        .HasName("IX_UserApp_UsersId");
-
-                    b.ToTable("UserApp");
-                });
-
-            modelBuilder.Entity("PlayStore.Model.Users", b =>
+            modelBuilder.Entity("PlayStore.Model.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -216,9 +190,27 @@ namespace PlayStore.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Compatibilities", b =>
+            modelBuilder.Entity("PlayStore.Model.UserApp", b =>
                 {
-                    b.HasOne("PlayStore.Model.Apps", "App")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AppsId");
+
+                    b.Property<int>("UsersId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppsId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UserApp");
+                });
+
+            modelBuilder.Entity("PlayStore.Model.Compatibility", b =>
+                {
+                    b.HasOne("PlayStore.Model.App", "App")
                         .WithMany("Compatibilities")
                         .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -226,23 +218,23 @@ namespace PlayStore.Migrations
 
             modelBuilder.Entity("PlayStore.Model.Devices", b =>
                 {
-                    b.HasOne("PlayStore.Model.Downloads", "IdNavigation")
+                    b.HasOne("PlayStore.Model.Download", "IdNavigation")
                         .WithOne("Devices")
                         .HasForeignKey("PlayStore.Model.Devices", "Id")
                         .HasConstraintName("FK_Devices_Downloads");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Downloads", b =>
+            modelBuilder.Entity("PlayStore.Model.Download", b =>
                 {
-                    b.HasOne("PlayStore.Model.Users", "User")
+                    b.HasOne("PlayStore.Model.User", "User")
                         .WithMany("Downloads")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Prices", b =>
+            modelBuilder.Entity("PlayStore.Model.Price", b =>
                 {
-                    b.HasOne("PlayStore.Model.Apps", "App")
+                    b.HasOne("PlayStore.Model.App", "App")
                         .WithMany("Prices")
                         .HasForeignKey("AppId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -250,15 +242,15 @@ namespace PlayStore.Migrations
 
             modelBuilder.Entity("PlayStore.Model.Ratings", b =>
                 {
-                    b.HasOne("PlayStore.Model.Downloads", "Download")
+                    b.HasOne("PlayStore.Model.Download", "Download")
                         .WithMany("Ratings")
                         .HasForeignKey("DownloadId")
                         .HasConstraintName("FK_Ratings_Downloads");
                 });
 
-            modelBuilder.Entity("PlayStore.Model.Uploads", b =>
+            modelBuilder.Entity("PlayStore.Model.Upload", b =>
                 {
-                    b.HasOne("PlayStore.Model.Users", "Users")
+                    b.HasOne("PlayStore.Model.User", "Users")
                         .WithMany("Uploads")
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -266,12 +258,12 @@ namespace PlayStore.Migrations
 
             modelBuilder.Entity("PlayStore.Model.UserApp", b =>
                 {
-                    b.HasOne("PlayStore.Model.Apps", "Apps")
+                    b.HasOne("PlayStore.Model.App", "Apps")
                         .WithMany("UserApp")
                         .HasForeignKey("AppsId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("PlayStore.Model.Users", "Users")
+                    b.HasOne("PlayStore.Model.User", "Users")
                         .WithMany("UserApp")
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade);

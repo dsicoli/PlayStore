@@ -37,7 +37,7 @@ namespace PlayStore.GenericRepository
        
         public TEntity AddEntityReturned(TEntity inputEntity)
         {
-            _dbSet.Add(inputEntity);
+            //_dbSet.Add(inputEntity);
             TEntity entity = _dbSet.Add(inputEntity).Entity;
             return entity;
         }
