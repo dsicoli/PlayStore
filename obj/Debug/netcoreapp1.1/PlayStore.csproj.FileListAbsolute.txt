@@ -1,0 +1,8 @@
+D:\Code\PlayStore\bin\Debug\netcoreapp1.1\PlayStore.deps.json
+D:\Code\PlayStore\bin\Debug\netcoreapp1.1\PlayStore.runtimeconfig.json
+D:\Code\PlayStore\bin\Debug\netcoreapp1.1\PlayStore.runtimeconfig.dev.json
+D:\Code\PlayStore\bin\Debug\netcoreapp1.1\PlayStore.dll
+D:\Code\PlayStore\bin\Debug\netcoreapp1.1\PlayStore.pdb
+D:\Code\PlayStore\obj\Debug\netcoreapp1.1\PlayStore.AssemblyInfo.cs
+D:\Code\PlayStore\obj\Debug\netcoreapp1.1\PlayStore.dll
+D:\Code\PlayStore\obj\Debug\netcoreapp1.1\PlayStore.pdb
