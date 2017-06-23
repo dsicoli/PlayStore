@@ -67,16 +67,16 @@ namespace PlayStore
 
 
                 appService.AddUpload(new UploadDTO(){
-                    DeveloperName = "Daniele",
-                    DeveloperSurname = "S",
+                    DeveloperName = "Luca",
+                    DeveloperSurname = "DM",
                     Accepted = true,
-                    DeviceType = "WinPhone",
-                    AppBrand = "Sustain",
-                    AppName = "Sost",
-                    Currency = "£",
-                    Value = "100000",
-                    Email = "dani.test@test.it",
-                    LastUpdate = "22//06//2017"
+                    DeviceType = "Android,WinPhone",
+                    AppBrand = "SearchBrand",
+                    AppName = "Search",
+                    Currency = "$",
+                    Value = "15000000",
+                    Email = "Luca.test@test.it",
+                    LastUpdate = "23//06//2017"
                 });
                 playStoreDBContext.SaveChanges();
 
@@ -85,7 +85,7 @@ namespace PlayStore
                 
                 
                 foreach(App app in returnedApps)
-                    Console.WriteLine("Name: "+app.Name+" "+"Brand: "+app.AppBrand);
+                    Console.WriteLine("Name: "+app.Name+" "+"Brand: "+app.AppBrand+" "+"Version: "+app.LastUpdate);
 
             }
             catch(Exception e)

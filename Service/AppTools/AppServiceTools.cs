@@ -72,9 +72,9 @@ namespace PlayStore.Service.AppTools
         //App side
         //***************************************************
 
-         public App GenerateNewAppFromDTO(UploadDTO uploadDTO = null, DownloadDTO downloadDTO = null)
+         public App GenerateNewAppFromDTO(UploadDTO uploadDTO )
         {
-            if(uploadDTO == null && downloadDTO == null)
+            if(uploadDTO == null)
                 throw new ArgumentNullException();
 
             return new App(){
@@ -84,9 +84,22 @@ namespace PlayStore.Service.AppTools
                             AppBrand = uploadDTO.AppBrand                    
                         }; 
         }
+
+        public App GenerateNewAppFromDTO( DownloadDTO downloadDTO )
+        {
+            if(downloadDTO == null)
+                throw new ArgumentNullException();
+
+            return new App(){
+                            Name = downloadDTO.AppName,
+                            Genre = downloadDTO.Genre,
+                            LastUpdate = downloadDTO.LastUpdate,
+                            AppBrand = downloadDTO.AppBrand                    
+                        }; 
+        }
         public App GenerateDuplicateAppOnDB(App newApp)
         {
-            return _playStoreDBContext.Apps.Where( x => x.LastUpdate == newApp.LastUpdate).FirstOrDefault();
+            return _playStoreDBContext.Apps.Where( x => x.Name == newApp.Name && x.LastUpdate == newApp.LastUpdate).FirstOrDefault();
         }
 
         //Projects the Pippo information contained into uploadDTO over a new Pippo object 
@@ -108,12 +121,13 @@ namespace PlayStore.Service.AppTools
         //Compatibility side
         //*****************************************************
 
-        public Compatibility GenerateNewCompatibilityFromDTO(UploadDTO uploadDTO = null, DownloadDTO downloadDTO = null)
+        public Compatibility GenerateNewCompatibilityFromDTO(App newApp, UploadDTO uploadDTO = null, DownloadDTO downloadDTO = null)
         {
             if(uploadDTO == null && downloadDTO == null)
                 throw new ArgumentNullException();
 
             return new Compatibility(){
+                                    AppId = newApp.Id,
                                     DeviceType = uploadDTO.DeviceType
                                 };
         }
@@ -123,9 +137,9 @@ namespace PlayStore.Service.AppTools
         }
 
         //Projects the Pippo information contained into uploadDTO over a new Pippo object 
-        public Compatibility CompatibilityDotUploadDTO(UploadDTO uploadDTO)
+        public Compatibility CompatibilityDotUploadDTO(App newApp, UploadDTO uploadDTO)
         {
-            Compatibility newCompatibility = GenerateNewCompatibilityFromDTO(uploadDTO);
+            Compatibility newCompatibility = GenerateNewCompatibilityFromDTO(newApp, uploadDTO);
 
             Compatibility compatibility = GenerateDuplicateCompatibilityOnDB(newCompatibility);
 
@@ -143,12 +157,13 @@ namespace PlayStore.Service.AppTools
         //Price side
         //*****************************************************
 
-        public Price GenerateNewPriceFromDTO(UploadDTO uploadDTO = null, DownloadDTO downloadDTO = null)
+        public Price GenerateNewPriceFromDTO(App newApp, UploadDTO uploadDTO = null, DownloadDTO downloadDTO = null)
         {
             if(uploadDTO == null && downloadDTO == null)
                 throw new ArgumentNullException();
 
             return new Price(){
+                            AppId = newApp.Id, 
                             Currency = uploadDTO.Currency,
                             Value = uploadDTO.Value
                         };
@@ -161,9 +176,9 @@ namespace PlayStore.Service.AppTools
         }
 
         //Projects the Pippo information contained into uploadDTO over a new Pippo object 
-        public Price PriceDotUploadDTO(UploadDTO uploadDTO)
+        public Price PriceDotUploadDTO(App newApp, UploadDTO uploadDTO)
         {
-            Price newPrice = GenerateNewPriceFromDTO(uploadDTO);
+            Price newPrice = GenerateNewPriceFromDTO(newApp, uploadDTO);
 
             if(GenerateDuplicatePriceOnDB(newPrice)==null)
             {

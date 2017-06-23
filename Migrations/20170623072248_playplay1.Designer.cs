@@ -8,9 +8,10 @@ using PlayStore.Model;
 namespace PlayStore.Migrations
 {
     [DbContext(typeof(PlayStoreDBContext))]
-    partial class PlayStoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20170623072248_playplay1")]
+    partial class playplay1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

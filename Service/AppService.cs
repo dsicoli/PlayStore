@@ -52,101 +52,21 @@ namespace PlayStore.Service
 
         
         public void AddUpload(UploadDTO uploadDTO)
-        {
-            //check sul valore nullo ArgumentNullException
+        {           
             if (uploadDTO == null)
                 throw new ArgumentException();
-
-
-
-            //***************************************************
-            //User side
-            //***************************************************
-
-             //var newUser = _appServiceTools.GenerateNewUserFromDTO(uploadDTO);
-
-            //var checkUser = _appServiceTools.GenerateDuplicateUserOnDB(newUser);
-
-            var newUser = _appServiceTools.UserDotUploadDTO(uploadDTO);
-
-            //***************************************************
-            //App side
-            //***************************************************
-            //App newApp = _appServiceTools.GenerateNewAppFromDTO(uploadDTO);
-
-            //App checkApp = _appServiceTools.GenerateDuplicateAppOnDB(newApp);
+            
+            User newUser = _appServiceTools.UserDotUploadDTO(uploadDTO);
 
             App newApp = _appServiceTools.AppDotUploadDTO(GetUploadDTO(uploadDTO));
+            
+            Compatibility newCompatibility = _appServiceTools.CompatibilityDotUploadDTO(newApp, uploadDTO);
+            
+            Price newPrice = _appServiceTools.PriceDotUploadDTO(newApp, uploadDTO);
 
-            //*****************************************************
-            //Compatibility side
-            //*****************************************************
-
-            //Compatibility newCompatibility = _appServiceTools.GenerateNewCompatibilityFromDTO(uploadDTO);
-
-            //Compatibility checkCompatibility = _appServiceTools.GenerateDuplicateCompatibilityOnDB(newCompatibility);
-
-            Compatibility newCompatibility = _appServiceTools.CompatibilityDotUploadDTO(uploadDTO);
-
-            //*****************************************************
-            //Price side
-            //*****************************************************
-
-            var newPrice = _appServiceTools.GenerateNewPriceFromDTO(uploadDTO);
-
-            //var checkPrice = _appServiceTools.GenerateDuplicatePriceOnDB(newPrice);
-
-            newPrice = _appServiceTools.PriceDotUploadDTO(uploadDTO);
-
-            //*****************************************************
-            //UserApp side
-            //*****************************************************
-
-            var newUserApp = _appServiceTools.GenerateNewUserAppFromDTO(newUser, newApp, uploadDTO);
-            // var newUserApp = new UserApp(){
-            //                     UsersId = newUser.Id,
-            //                     AppsId = newApp.Id
-            //                 };
-
-            //var checkUserApp = _appServiceTools.GenerateDuplicateUserAppOnDB(newUserApp);
-            //UserApp checkUserApp = _playStoreDBContext.UserApp.Where( x => x.UsersId == newUserApp.UsersId && x.AppsId == newUserApp.AppsId).FirstOrDefault();
-
-
-            newUserApp = _appServiceTools.UserAppDotUploadDTO(newUser, newApp, uploadDTO);
-            // if(checkUserApp == null)
-            // {
-            //     //Add to UserApp
-            //     UserApp tempTempUserApp = _userAppRepository.AddEntityReturned(newUserApp);
-
-            //     //tempUserApp=tempTempUserApp;
-
-            //     _playStoreDBContext.SaveChanges();
-            // }
-
-            // newUserApp = _playStoreDBContext.UserApp.Where(x => x.UsersId == newUserApp.UsersId && x.AppsId == newUserApp.AppsId).FirstOrDefault();
-
-            //*****************************************************
-            //Upload side
-            //*****************************************************
-
-            var newUpload = _appServiceTools.GenerateNewUploadFromDTO(newUser, newUserApp, uploadDTO);
-            // var tempUploads = new Upload(){
-            //     UsersId = newUser.Id,
-            //     UserAppId = newUserApp.Id,
-            //     Accepted = uploadDTO.Accepted,
-            //     Update = uploadDTO.Update
-            // };
-
-            newUpload = _appServiceTools.UploadDotUploadDTO(newUser, newUserApp, uploadDTO);
-            //Add to Uploads
-            // Upload tempTempUploads = _uploadRepository.AddEntityReturned(
-            //     newUpload
-            // );
-
-            // newUpload = tempTempUploads;
-
-            // _playStoreDBContext.SaveChanges();
-            //*****************************************************
+            UserApp newUserApp = _appServiceTools.UserAppDotUploadDTO(newUser, newApp, uploadDTO);
+            
+            Upload newUpload = _appServiceTools.UploadDotUploadDTO(newUser, newUserApp, uploadDTO);
 
         }
 

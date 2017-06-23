@@ -29,8 +29,7 @@ namespace PlayStore.Model
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasIndex(e => e.LastUpdate)
-                    .HasName("IX_Apps")
-                    .IsUnique();
+                    .HasName("IX_Apps");
 
                 // entity.Property(e => e.Id).ValueGeneratedNever();
 
