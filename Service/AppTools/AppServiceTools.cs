@@ -54,7 +54,7 @@ namespace PlayStore.Service.AppTools
         }
 
         //Projects the user information contained into uploadDTO over a new User object 
-        public User UserDotUploadDTO(UploadDTO uploadDTO)
+        public User UploadDTOProjectedOverUser(UploadDTO uploadDTO)
         {
             User newUser = GenerateNewUserFromDTO(uploadDTO);
 

@@ -56,7 +56,7 @@ namespace PlayStore.Service
             if (uploadDTO == null)
                 throw new ArgumentException();
             
-            User newUser = _appServiceTools.UserDotUploadDTO(uploadDTO);
+            User newUser = _appServiceTools.UploadDTOProjectedOverUser(uploadDTO);
 
             App newApp = _appServiceTools.AppDotUploadDTO(GetUploadDTO(uploadDTO));
             
