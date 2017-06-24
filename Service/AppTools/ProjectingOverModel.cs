@@ -13,16 +13,28 @@ using PlayStore.Service.AppTools;
 
 namespace PlayStore.Service.AppTools
 {
-    public class ProjectingOverModel
+    public class ProjectingOverModel<T>
     {
-        public ProjectingOverModel()
+        private User _user;
+        private GenericRepository<User> _gRUser;
+        private GenerateEntitiesFromDTO _generateEntitiesFromDTO;
+        private DBDuplicates _dBDuplicates;
+        public ProjectingOverModel( DBDuplicates dBDuplicates, GenerateEntitiesFromDTO generateEntitiesFromDTO, GenericRepository<User> gRUser)
         {
-            
+            _generateEntitiesFromDTO = generateEntitiesFromDTO;
+            _dBDuplicates = dBDuplicates;
+            _gRUser = gRUser;
         }
 
         public void UploadDTOProjectedOverUser(UploadDTO uploadDTO)
         {
-              
+            _generateEntitiesFromDTO.CopyUploadDTOOnUser(_user,uploadDTO);
+            
+            if(!_dBDuplicates.UserWithSameEmail(_user))
+            {
+                _gRUser.AddEntity(_user);
+                _gRUser.SaveRepository();
+            }
         }
     }
 }    

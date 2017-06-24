@@ -21,11 +21,19 @@ namespace PlayStore.Service.AppTools
             _playStoreDBContext = playStoreDBContext;
         }
 
-        public void CopyUserWithSameEmail(User checkUser)
+        public PlayStoreDBContext GetContext()
         {
-            checkUser = _playStoreDBContext.Users
+            return _playStoreDBContext;
+        }
+
+        public bool UserWithSameEmail(User checkUser)
+        {
+            if(_playStoreDBContext.Users
             .Where( x => x.Email == checkUser.Email )
-            .FirstOrDefault();
+            .FirstOrDefault()==null) 
+                return false;
+            else
+                return true;
         }
 
         public void CopyAppWithSameNameAndVersion(App checkApp)
