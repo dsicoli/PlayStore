@@ -7,30 +7,31 @@ namespace PlayStore.Model
     public partial class PlayStoreDBContext : DbContext
     {
         public virtual DbSet<App> Apps { get; set; }
-        public virtual DbSet<Compatibilities> Compatibilities { get; set; }
+        public virtual DbSet<Compatibility> Compatibilities { get; set; }
         public virtual DbSet<Devices> Devices { get; set; }
-        public virtual DbSet<Downloads> Downloads { get; set; }
-        public virtual DbSet<Prices> Prices { get; set; }
+        public virtual DbSet<Download> Downloads { get; set; }
+        public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Ratings> Ratings { get; set; }
-        public virtual DbSet<Uploads> Uploads { get; set; }
+        public virtual DbSet<Upload> Uploads { get; set; }
         public virtual DbSet<UserApp> UserApp { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=PlayStoreDB2;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS02;Database=NewPlayStoreDB;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<App>(entity =>
             {
-                entity.HasIndex(e => e.LastUpdate)
-                    .HasName("IX_Apps")
-                    .IsUnique();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.HasIndex(e => e.LastUpdate)
+                    .HasName("IX_Apps");
+
+                // entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.AppBrand).HasColumnType("varchar(250)");
 
@@ -43,8 +44,10 @@ namespace PlayStore.Model
                 entity.Property(e => e.Name).HasColumnType("varchar(250)");
             });
 
-            modelBuilder.Entity<Compatibilities>(entity =>
+            modelBuilder.Entity<Compatibility>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                
                 entity.HasIndex(e => e.AppId)
                     .HasName("IX_Compatibilities_AppId");
 
@@ -68,8 +71,10 @@ namespace PlayStore.Model
                     .HasConstraintName("FK_Devices_Downloads");
             });
 
-            modelBuilder.Entity<Downloads>(entity =>
+            modelBuilder.Entity<Download>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasIndex(e => e.UserId)
                     .HasName("IX_Downloads_UserId");
 
@@ -80,8 +85,10 @@ namespace PlayStore.Model
                     .HasForeignKey(d => d.UserId);
             });
 
-            modelBuilder.Entity<Prices>(entity =>
+            modelBuilder.Entity<Price>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasIndex(e => e.AppId)
                     .HasName("IX_Prices_AppId");
 
@@ -94,6 +101,8 @@ namespace PlayStore.Model
 
             modelBuilder.Entity<Ratings>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasIndex(e => e.DownloadId)
                     .HasName("IX_Ratings_DownloadId");
 
@@ -106,8 +115,10 @@ namespace PlayStore.Model
                     .HasConstraintName("FK_Ratings_Downloads");
             });
 
-            modelBuilder.Entity<Uploads>(entity =>
+            modelBuilder.Entity<Upload>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasIndex(e => e.UsersId)
                     .HasName("IX_Uploads_UsersId");
 
@@ -118,6 +129,8 @@ namespace PlayStore.Model
 
             modelBuilder.Entity<UserApp>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 // entity.HasIndex(e => e.AppsId)
                 //     .HasName("IX_UserApp_AppsId");
 
@@ -135,6 +148,8 @@ namespace PlayStore.Model
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
                 entity.HasIndex(e => e.Email)
                     .HasName("IX_Users")
                     .IsUnique();

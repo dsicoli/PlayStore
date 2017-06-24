@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PlayStore.Migrations
 {
-    public partial class play3 : Migration
+    public partial class home1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

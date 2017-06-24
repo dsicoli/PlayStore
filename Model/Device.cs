@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace PlayStore.Model
 {
-    public partial class Ratings
+    public partial class Devices
     {
         public int Id { get; set; }
+        public string DeviceUsed { get; set; }
         public int DownloadId { get; set; }
-        public string IndividualRating { get; set; }
 
-        public virtual Downloads Download { get; set; }
+        public virtual Download IdNavigation { get; set; }
     }
 }

@@ -67,16 +67,16 @@ namespace PlayStore
 
 
                 appService.AddUpload(new UploadDTO(){
-                    DeveloperName = "Antonio",
-                    DeveloperSurname = "LR",
+                    DeveloperName = "Luca",
+                    DeveloperSurname = "DM",
                     Accepted = true,
-                    DeviceType = "Android",
-                    AppBrand = "Comitiva",
-                    AppName = "Mordi e fuggi",
+                    DeviceType = "Android,WinPhone",
+                    AppBrand = "SearchBrand",
+                    AppName = "Search",
                     Currency = "$",
-                    Value = "10",
-                    Email = "anto.test@test.it",
-                    LastUpdate = "20//06//2017"
+                    Value = "15000000",
+                    Email = "Luca.test@test.it",
+                    LastUpdate = "23//06//2017"
                 });
                 playStoreDBContext.SaveChanges();
 
@@ -85,7 +85,7 @@ namespace PlayStore
                 
                 
                 foreach(App app in returnedApps)
-                    Console.WriteLine("Name: "+app.Name+" "+"Brand: "+app.AppBrand);
+                    Console.WriteLine("Name: "+app.Name+" "+"Brand: "+app.AppBrand+" "+"Version: "+app.LastUpdate);
 
             }
             catch(Exception e)

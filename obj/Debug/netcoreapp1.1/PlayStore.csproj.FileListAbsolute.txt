@@ -6,3 +6,11 @@ D:\Code\PlayStore\bin\Debug\netcoreapp1.1\PlayStore.pdb
 D:\Code\PlayStore\obj\Debug\netcoreapp1.1\PlayStore.AssemblyInfo.cs
 D:\Code\PlayStore\obj\Debug\netcoreapp1.1\PlayStore.dll
 D:\Code\PlayStore\obj\Debug\netcoreapp1.1\PlayStore.pdb
+C:\VsCode\ConsoleApps\Develop\bin\Debug\netcoreapp1.1\PlayStore.deps.json
+C:\VsCode\ConsoleApps\Develop\bin\Debug\netcoreapp1.1\PlayStore.runtimeconfig.json
+C:\VsCode\ConsoleApps\Develop\bin\Debug\netcoreapp1.1\PlayStore.runtimeconfig.dev.json
+C:\VsCode\ConsoleApps\Develop\obj\Debug\netcoreapp1.1\PlayStore.AssemblyInfo.cs
+C:\VsCode\ConsoleApps\Develop\obj\Debug\netcoreapp1.1\PlayStore.dll
+C:\VsCode\ConsoleApps\Develop\obj\Debug\netcoreapp1.1\PlayStore.pdb
+C:\VsCode\ConsoleApps\Develop\bin\Debug\netcoreapp1.1\PlayStore.dll
+C:\VsCode\ConsoleApps\Develop\bin\Debug\netcoreapp1.1\PlayStore.pdb

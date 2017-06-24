@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlayStore.Model
 {
-    public partial class Downloads
+    public partial class Download
     {
         // public Downloads()
         // {
